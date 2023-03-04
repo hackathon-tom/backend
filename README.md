@@ -24,3 +24,8 @@ _in progress_
 - Install all the necessary modules with `npm install`
 - Start the application with `npm run start:dev` _se available commands above for more informations_
 - Enjoy
+
+## **Used Technologies**
+
+- Express
+- TypeORM with Mysql
