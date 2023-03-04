@@ -1,3 +1,7 @@
+/**
+ * TODO IMPORTANT: configure csrf
+ */
+
 import Express from "express";
 
 import Database from "./database";
