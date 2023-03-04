@@ -27,9 +27,12 @@ _in progress_
 
 ## **Used Technologies**
 
-- Express
+- Express and Express Validation
 - TypeORM with Mysql
+- JWT for authentification
 
 # **Utils**
 
 - [Github Emojis](https://gist.github.com/parmentf/035de27d6ed1dce0b36a)
+- [Express Validation Documentation](https://express-validator.github.io/docs/)
+- [TypeORM Documentation](https://typeorm.io/)
