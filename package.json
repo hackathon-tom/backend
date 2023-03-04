@@ -5,8 +5,8 @@
   "main": "src/index.js",
   "scripts": {
     "push": "git push -u origin main",
-    "start:dev": "nodemon --watch src -e js,ts,json --exec \"ts-node src/index.ts\"",
-    "start:prod": "node dist/index.js",
+    "start:dev": "ENVIRONEMENT=developement nodemon --watch src -e js,ts,json --exec \"ts-node src/index.ts\"",
+    "start:prod": "ENVIRONEMENT=production node dist/index.js",
     "build": "tsup src/index.ts --format cjs --clean"
   },
   "repository": {

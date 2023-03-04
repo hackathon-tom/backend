@@ -1,34 +1,35 @@
-/*
-import Mysql from "mysql2";
-
-const pool = Mysql.createPool({
-  host: "dsq",
-  port: 3000,
-  user: "dsq",
-  password: "dsq",
-  database: "dsq",
-  waitForConnections: true,
-  connectionLimit: 10,
-  maxIdle: 10,
-  idleTimeout: 60000,
-  queueLimit: 0,
-});
-
-export default pool;
-*/
-
 import * as TypeORM from "typeorm";
 
-const DataSource = new TypeORM.DataSource({
-  type: "mysql",
-  host: "localhost",
-  port: 3306,
-  username: "admin",
-  password: "admin",
-  database: "hackathon",
-  entities: ["./src/database/models/*.entity.ts"],
-  logging: true,
-  synchronize: true,
-});
+import Environment from "../utils/Environement";
+import Logger, { LogState } from "../utils/Logger";
 
-export default DataSource;
+/**
+ * TODO: move it to it's own method
+ * TODO: maybe store the datasource inside of req.source / req.data / req.datasource for a better ux
+ */
+class Database {
+  public static DataSource = new TypeORM.DataSource({
+    type: "mysql",
+    host: Environment.get("backend.database.host"),
+    port: parseInt(Environment.get("backend.database.port")),
+    username: Environment.get("backend.database.username"),
+    password: Environment.get("backend.database.password"),
+    database: Environment.get("backend.database.database"),
+    entities: ["./src/database/models/*.entity.ts"],
+    logging: true,
+    synchronize: true,
+  });
+
+  public static initialize() {
+    this.DataSource.initialize()
+      .then(() => {
+        Logger.log(LogState.ERROR, "database", "connected");
+      })
+      .catch(() => {
+        Logger.log(LogState.ERROR, "database", "error");
+        process.exit(1);
+      });
+  }
+}
+
+export default Database;
