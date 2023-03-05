@@ -10,7 +10,7 @@ export enum PipeType {
 }
 
 /**
- * TODO: better design, if there is an error what we do ?
+ * TODO: better design, if there is an error what we do
  */
 
 /**

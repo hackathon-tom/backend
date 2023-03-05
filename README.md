@@ -31,8 +31,10 @@ _in progress_
 - TypeORM with Mysql
 - JWT for authentification
 
-# **Utils**
+## **Utils**
 
 - [Github Emojis](https://gist.github.com/parmentf/035de27d6ed1dce0b36a)
 - [Express Validation Documentation](https://express-validator.github.io/docs/)
 - [TypeORM Documentation](https://typeorm.io/)
+- [Git Stash](https://www.atlassian.com/fr/git/tutorials/saving-changes/git-stash)
+- `git stash`, `git stash pop`(apply the most recent stash), `git stash apply`, `git stash -u` (include untracked files), `git stash list` (get all available stashes), `git stash pop <stashh-name>` (apply a specific stash from the stash list), `git stash show` (differences between stashes), `git stash drop <stash-name>` (delete a specific stash), `git stash clear` (clear all stashes in the stash list)
