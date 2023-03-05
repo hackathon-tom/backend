@@ -23,9 +23,10 @@ class Database {
   public static initialize() {
     this.DataSource.initialize()
       .then(() => {
-        Logger.log(LogState.ERROR, "database", "connected");
+        Logger.log(LogState.SUCCESS, "database", "connected");
       })
-      .catch(() => {
+      .catch((err) => {
+        console.log(err);
         Logger.log(LogState.ERROR, "database", "error");
         process.exit(1);
       });

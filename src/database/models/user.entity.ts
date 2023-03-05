@@ -1,13 +1,9 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
-
-enum Authority {
-  READ = "read",
-  WRITE = "write",
-  DELETE = "delete",
-}
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import UserInterface from "../interfaces/UserInterface";
+import Authority from "./authority.entity";
 
 @Entity()
-export default class User {
+export default class User implements UserInterface {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -15,5 +11,11 @@ export default class User {
   username: string;
 
   @Column()
+  email: string;
+
+  @Column()
+  password: string;
+
+  @OneToMany(() => Authority, (authority) => authority.user, { eager: true })
   authorities: Authority[];
 }
