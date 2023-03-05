@@ -38,3 +38,8 @@ _in progress_
 - [TypeORM Documentation](https://typeorm.io/)
 - [Git Stash](https://www.atlassian.com/fr/git/tutorials/saving-changes/git-stash)
 - `git stash`, `git stash pop`(apply the most recent stash), `git stash apply`, `git stash -u` (include untracked files), `git stash list` (get all available stashes), `git stash pop <stashh-name>` (apply a specific stash from the stash list), `git stash show` (differences between stashes), `git stash drop <stash-name>` (delete a specific stash), `git stash clear` (clear all stashes in the stash list)
+
+## **Todos**
+
+- [ ] Setup sockets / SSE
+- [ ] Link the frontend and the backend
