@@ -31,8 +31,13 @@ _in progress_
 - TypeORM with Mysql
 - JWT for authentification
 
-# **Utils**
+## **Utils**
 
 - [Github Emojis](https://gist.github.com/parmentf/035de27d6ed1dce0b36a)
 - [Express Validation Documentation](https://express-validator.github.io/docs/)
 - [TypeORM Documentation](https://typeorm.io/)
+
+## **Todos**
+
+- [ ] Setup sockets / SSE
+- [ ] Link the frontend and the backend
