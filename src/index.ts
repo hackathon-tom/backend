@@ -2,8 +2,9 @@
  * TODO IMPORTANT: configure csrf
  */
 
-//i always feel like 
+//i always feel like
 //somebody's watching meeeeeee 👀
+//i have the same feeling
 
 import Express from "express";
 
@@ -26,3 +27,16 @@ app.use(Express.json());
 app.use("/api", Routes);
 
 app.listen(port, () => Logger.log(LogState.SUCCESS, "server", String(port)));
+
+interface UserInterface {
+  name: string;
+}
+
+declare global {
+  namespace Express {
+    interface Request {
+      user?: UserInterface;
+      pipes: { [key: string]: any };
+    }
+  }
+}
