@@ -12,7 +12,7 @@ export default (validations: ValidationChain[]) => {
       throw new HttpException(
         "errors in fields, data not well formated",
         400,
-        errors.array()
+         errors.array()
       );
 
     console.log("[system]:", "validation passed");
