@@ -14,7 +14,6 @@ const Router = Express.Router();
  * TODO: add a middleware to handle the validation errors and return if there is any
  * TODO: middlewares to validate body
  */
-
 Router.post(
   "/login",
   body("email").isEmail(),
@@ -54,25 +53,20 @@ Router.post(
   }
 );
 
-Router.delete("/logout", (req, res) => {
-  /**
-   * TODO: remove the cookie
-   */
+Router.delete("/logout", authenticate, isLoggedIn, (req, res) => {
+  res.setHeader(
+    "Set-Cookie:",
+    "token=deleted; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT"
+  );
+  res.sendStatus(200);
 });
 
 Router.get("/", authenticate, isLoggedIn, (req, res) => {
   /**
-   * TODO: return the authneticated user
    * TODO: remove the password from the user
    */
 
   res.json(req.user!);
 });
-
-/**
- * POST login (username and password)
- * DELETE logout
- * get getCurrentLoggedInUser
- */
 
 export default Router;

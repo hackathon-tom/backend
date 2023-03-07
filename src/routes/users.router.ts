@@ -28,7 +28,18 @@ Router.get(
   }
 );
 
-Router.get("/:userId", (req, res) => {});
+Router.get("/:userId", async (req, res) => {
+  const userId = parseInt(req.params.userId);
+  const user = await Database.DataSource.getRepository(User).findOneBy({
+    id: userId,
+  });
+  if (user == null)
+    throw new HttpException("invalid userId provided", 404, ["invalid userId"]);
+  return res.status(200).json(user);
+  /**
+   * create dtos to remove the password
+   */
+});
 
 Router.post(
   "/",
@@ -74,8 +85,20 @@ Router.post(
   }
 );
 
-Router.put("/", (req, res) => {});
+/**
+ * TODO: route to update the user
+ */
+//Router.put("/", (req, res) => {});
 
-Router.delete("/", (req, res) => {});
+Router.delete("/", authenticate, isLoggedIn, async (req, res) => {
+  const result = await Database.DataSource.getRepository(User).delete({
+    id: req.user?.id,
+  });
+  if (result.affected === 0)
+    throw new HttpException("something went wrong", 500, [
+      "something went wrong",
+    ]);
+  return res.sendStatus(200);
+});
 
 export default Router;
