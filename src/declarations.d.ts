@@ -1,13 +1,11 @@
-interface UserInterface {
-  name: string;
-}
+import User from "./database/models/user.entity";
 
-export {};
+export default global;
 
 declare global {
   namespace Express {
     interface Request {
-      user?: UserInterface;
+      user?: User;
       pipes: { [key: string]: any };
     }
   }

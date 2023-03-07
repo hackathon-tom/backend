@@ -2,9 +2,7 @@
  * TODO IMPORTANT: configure csrf
  */
 
-//i always feel like
-//somebody's watching meeeeeee 👀
-//i have the same feeling
+import "./declarations";
 
 import "reflect-metadata";
 import "express-async-errors";
@@ -14,8 +12,6 @@ import CookieParser from "cookie-parser";
 
 import Database from "./database";
 import Routes from "./routes/router";
-
-import User from "./database/models/user.entity";
 
 import Cors from "./utils/Cors";
 import Environment from "./utils/Environement";
@@ -37,12 +33,3 @@ app.use("/api", Routes);
 app.use(ErrorHandler);
 
 app.listen(port, () => Logger.log(LogState.SUCCESS, "server", String(port)));
-
-declare global {
-  namespace Express {
-    interface Request {
-      user?: User;
-      pipes: { [key: string]: any };
-    }
-  }
-}
