@@ -2,7 +2,7 @@
  * TODO IMPORTANT: configure csrf
  */
 
-import "./declarations";
+//import "./declarations.d.ts";
 
 import "reflect-metadata";
 import "express-async-errors";
@@ -33,3 +33,14 @@ app.use("/api", Routes);
 app.use(ErrorHandler);
 
 app.listen(port, () => Logger.log(LogState.SUCCESS, "server", String(port)));
+
+import User from "./database/models/user.entity";
+
+declare global {
+  namespace Express {
+    interface Request {
+      user?: User;
+      pipes: { [key: string]: any };
+    }
+  }
+}

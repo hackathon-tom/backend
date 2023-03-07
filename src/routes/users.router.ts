@@ -1,16 +1,22 @@
+import BCrypt from "bcrypt";
 import Express from "express";
+
 import { body } from "express-validator";
+
 import Database from "../database";
-import Authority, { AuthorityType } from "../database/models/authority.entity";
 import User from "../database/models/user.entity";
+import Authority, { AuthorityType } from "../database/models/authority.entity";
+
+import HttpException from "../utils/HttpException";
+
+import isLoggedIn from "../middlewares/isLoggedIn";
 import authenticate from "../middlewares/authenticate";
 import hasAuthorities from "../middlewares/hasAuthorities";
-import isLoggedIn from "../middlewares/isLoggedIn";
-import HttpException from "../utils/HttpException";
 
 const Router = Express.Router();
 
 Router.get("/", (req, res) => {
+  // get list of users
   res.send("valid");
 });
 
@@ -44,7 +50,7 @@ Router.get("/:userId", async (req, res) => {
 Router.post(
   "/",
   body("email").isEmail(),
-  body("password").isStrongPassword(),
+  body("password").isString().isLength({ min: 8, max: 64 }),
   body("username").isString().isLength({ min: 2, max: 25 }),
   async (req, res, next) => {
     if (
@@ -64,7 +70,7 @@ Router.post(
 
     user.username = req.body.username;
     user.email = req.body.email;
-    user.password = req.body.password;
+    user.password = await BCrypt.hashSync(req.body.password, 10);
 
     user = await Database.DataSource.getRepository(User).save(user);
 

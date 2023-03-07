@@ -7,6 +7,9 @@ import Environment from "../utils/Environement";
 import Database from "../database";
 import User from "../database/models/user.entity";
 import HttpException from "../utils/HttpException";
+import validate from "../validations/validate";
+
+import BCrypt from "bcrypt";
 
 const Router = Express.Router();
 
@@ -16,28 +19,26 @@ const Router = Express.Router();
  */
 Router.post(
   "/login",
-  body("email").isEmail(),
-  body("password").isString().isLength({ min: 8, max: 256 }),
+  validate([
+    body("email").isEmail(),
+    body("password").isString().isLength({ min: 8, max: 256 }),
+  ]),
   async (req, res) => {
-    const errors = validationResult(req);
-
-    if (!errors.isEmpty()) {
-      return res.status(400).json({ errors: errors.array() });
-    }
-
     const { email, password } = req.body;
 
     const user = await Database.DataSource.getRepository(User).findOneBy({
       email,
-      password,
     });
 
-    if (user == null)
-      throw new HttpException(
-        "invalid email and password combination",
-        403,
-        []
-      );
+    if (user === null || user === undefined || !user)
+      throw new HttpException("invalid email provided", 403, [
+        "invalid email provided",
+      ]);
+
+    const verification = await BCrypt.compareSync(password, user.password);
+
+    if (verification == false)
+      throw new HttpException("invalid password", 403, ["invalid password"]);
 
     const token = Jwt.sign(email, Environment.get("backend.server.secret"));
 
