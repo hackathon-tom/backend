@@ -11,9 +11,9 @@ export default (validations: ValidationChain[]) => {
     if (!errors.isEmpty()) {
       console.log("errors:", errors.array);
       throw new HttpException(
-        "errors in fields, data nor well formated",
+        "errors in fields, data not well formated",
         400,
-        errors.array()
+         errors.array()
       );
     }
 
