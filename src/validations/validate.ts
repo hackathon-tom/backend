@@ -8,12 +8,14 @@ export default (validations: ValidationChain[]) => {
 
     const errors = validationResult(req);
 
-    if (!errors.isEmpty())
+    if (!errors.isEmpty()) {
+      console.log("errors:", errors.array);
       throw new HttpException(
         "errors in fields, data nor well formated",
         400,
         errors.array()
       );
+    }
 
     console.log("[system]:", "validation passed");
 

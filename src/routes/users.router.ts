@@ -20,19 +20,9 @@ Router.get("/", (req, res) => {
   res.send("valid");
 });
 
-Router.get(
-  "/me",
-  authenticate,
-  isLoggedIn,
-  hasAuthorities([
-    AuthorityType.WRITE,
-    AuthorityType.DELETE,
-    AuthorityType.READ,
-  ]),
-  (req, res) => {
-    res.status(200).json(req.user);
-  }
-);
+Router.get("/me", authenticate, isLoggedIn, (req, res) => {
+  res.status(200).json(req.user);
+});
 
 Router.get("/:userId", async (req, res) => {
   const userId = parseInt(req.params.userId);

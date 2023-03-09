@@ -9,11 +9,11 @@ export default class Stop {
   @Column()
   name: string;
 
-  @Column()
-  latitude: number;
+  @Column({ type: "varchar", length: 256 })
+  latitude: string;
 
-  @Column()
-  longitude: number;
+  @Column({ type: "varchar", length: 256 })
+  longitude: string;
 
   @ManyToOne(() => Bus, (bus) => bus.stops)
   bus: Bus;

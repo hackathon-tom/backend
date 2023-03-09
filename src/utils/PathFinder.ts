@@ -48,11 +48,14 @@ export default class PathFinder {
     graphe.dropUndirectedEdge("start", "end");
     graphe.addEdge("start", "end", { weight: 10000000 });
 
-    const result = dijkstra.bidirectional(graphe, "start", "end", "weight");
+    const result: any = dijkstra.bidirectional(
+      graphe,
+      "start",
+      "end",
+      "weight"
+    );
 
-    console.log(result);
-
-    return [];
+    return result.map((nodeId: any) => graphe.getNodeAttributes(nodeId));
   }
 
   private static toRadians(degree: number): number {
@@ -96,9 +99,10 @@ export default class PathFinder {
         graphe.addNode(bus.name + stop.id, {
           latitude: stop.latitude,
           longitude: stop.longitude,
+          stopId: stop.id,
         });
 
-        if (stopIndex !== -1)
+        if (stopIndex !== 0)
           graphe.addEdge(
             bus.name + stop.id,
             bus.name + bus.stops[stopIndex - 1].id,
@@ -112,7 +116,10 @@ export default class PathFinder {
 
           const distance = this.distance(
             this.coordinate(attributes.latitude, attributes.longitude),
-            this.coordinate(stop.latitude, stop.longitude)
+            this.coordinate(
+              parseFloat(stop.latitude),
+              parseFloat(stop.longitude)
+            )
           );
 
           graphe.addEdge(nodeId, bus.name + stop.id, {

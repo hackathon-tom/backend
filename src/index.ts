@@ -18,6 +18,8 @@ import Environment from "./utils/Environement";
 import ErrorHandler from "./utils/ErrorHandler";
 import Logger, { LogState } from "./utils/Logger";
 
+import { BUS_STOPS } from "./constants";
+
 const port = parseInt(Environment.get("backend.server.port") || "3003");
 
 Database.initialize();
@@ -35,6 +37,34 @@ app.use(ErrorHandler);
 app.listen(port, () => Logger.log(LogState.SUCCESS, "server", String(port)));
 
 import User from "./database/models/user.entity";
+import Stop from "./database/models/stops.entity";
+import Bus from "./database/models/bus.entity";
+
+const setup = async () => {
+  for (let key in BUS_STOPS) {
+    const Busrepository = Database.DataSource.getRepository(Bus);
+    const StopRepository = Database.DataSource.getRepository(Stop);
+
+    const bus = BUS_STOPS[key];
+
+    const busEntity = (await Busrepository.findOneBy({ id: bus.id })) as Bus;
+
+    bus.stops.forEach((s) => {
+      const stop = new Stop();
+
+      stop.bus = busEntity;
+      stop.name = s.name;
+      stop.latitude = `${s.latitude}`;
+      stop.longitude = `${s.longitude}`;
+
+      StopRepository.save(stop);
+    });
+  }
+};
+
+setTimeout(() => {
+  setup();
+}, 5000);
 
 declare global {
   namespace Express {

@@ -19,10 +19,12 @@ const Router = Express.Router();
  */
 Router.post(
   "/login",
+  /*
   validate([
     body("email").isEmail(),
     body("password").isString().isLength({ min: 8, max: 256 }),
   ]),
+  */
   async (req, res) => {
     const { email, password } = req.body;
 
@@ -36,11 +38,13 @@ Router.post(
       ]);
 
     const verification = await BCrypt.compareSync(password, user.password);
+    console.log("verification", verification);
 
     if (verification == false)
       throw new HttpException("invalid password", 403, ["invalid password"]);
 
     const token = Jwt.sign(email, Environment.get("backend.server.secret"));
+    console.log("token", token);
 
     /**
      * TODO: check if the email and password match any row in the database
@@ -50,7 +54,9 @@ Router.post(
 
     res.cookie("token", token);
 
-    res.status(200).send(user);
+    //res.setHeader("Set-Cookie", token);
+
+    res.status(200).json(user);
   }
 );
 

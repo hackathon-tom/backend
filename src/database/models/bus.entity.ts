@@ -12,6 +12,6 @@ export default class Bus {
   @Column()
   price: number;
 
-  @OneToMany(() => Stop, (stop) => stop.bus, { eager: false })
+  @OneToMany(() => Stop, (stop) => stop.bus, { eager: true })
   stops: Stop[];
 }

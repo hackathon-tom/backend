@@ -5,7 +5,7 @@ import StopsRouter from "./stop.router";
 import UsersRouter from "./users.router";
 import IndexRouter from "./index.router";
 import NavigationRouter from "./navigation.router";
-import AuthentificationRouter from "./autnetification.router";
+import AuthentificationRouter from "./authentication.router";
 
 const Router = Express.Router();
 

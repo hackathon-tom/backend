@@ -8,7 +8,13 @@ import Environment from "../utils/Environement";
 import User from "../database/models/user.entity";
 
 export default async (req: Request, res: Response, next: NextFunction) => {
-  const token = req.cookies.jwt;
+  const token = req.cookies.token;
+
+  console.log("tk", token);
+
+  if (token === undefined || token === null) return next();
+
+  console.log("tk", token);
 
   const verification = Jwt.verify(
     token,
