@@ -40,6 +40,7 @@ import User from "./database/models/user.entity";
 import Stop from "./database/models/stops.entity";
 import Bus from "./database/models/bus.entity";
 
+/*
 const setup = async () => {
   for (let key in BUS_STOPS) {
     const Busrepository = Database.DataSource.getRepository(Bus);
@@ -65,6 +66,7 @@ const setup = async () => {
 setTimeout(() => {
   setup();
 }, 5000);
+*/
 
 declare global {
   namespace Express {

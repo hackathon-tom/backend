@@ -100,6 +100,7 @@ export default class PathFinder {
           latitude: stop.latitude,
           longitude: stop.longitude,
           stopId: stop.id,
+          name: stop.name,
         });
 
         if (stopIndex !== 0)
